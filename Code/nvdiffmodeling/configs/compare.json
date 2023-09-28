@@ -1,0 +1,15 @@
+{
+    "base_mesh": "./nvdiffmodeling/data/compare/repack.obj",
+    "ref_mesh": "./nvdiffmodeling/data/compare/model.obj",
+    "camera_eye": [ 2.5, 0.0, -2.5 ],
+    "camera_up": [ 0.0, 1.0, 0.0 ],
+    "random_textures": false,
+    "iter": 50,
+    "save_interval": 10,
+    "texture_res": [ 1024, 1024 ],
+    "train_res": 512,
+    "batch": 1,
+    "learning_rate": 0.03,
+    "min_roughness" : 0.25,
+    "out_dir" : "compare" 
+}

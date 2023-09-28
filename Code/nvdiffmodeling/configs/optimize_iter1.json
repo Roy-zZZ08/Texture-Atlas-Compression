@@ -1,0 +1,15 @@
+{
+    "base_mesh": "./nvdiffmodeling/data/optimize/repack.obj",
+    "ref_mesh": "./nvdiffmodeling/data/optimize/model.obj",
+    "camera_eye": [ 2, 0.0, -2 ],
+    "camera_up": [ 0.0, 1.0, 0.0 ],
+    "random_textures": false,
+    "iter": 5000,
+    "save_interval": 200,
+    "texture_res": [ 1024, 1024 ],
+    "train_res": 512,
+    "batch": 8,
+    "learning_rate": 0.03,
+    "min_roughness" : 0.25,
+    "out_dir" : "./optimize" 
+}
