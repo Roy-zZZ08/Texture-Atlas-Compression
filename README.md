@@ -1,4 +1,4 @@
-# AtlasCompression
+# Texture-Atlas-Compression
 
 Texture Atlas Compression Based on Repeated Content Removal
 
