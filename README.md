@@ -19,7 +19,11 @@ Tested in Anaconda3 with Python 3.8 and PyTorch 1.12 + Cuda 11.3
 3. Install [Cuda](https://developer.nvidia.com/cuda-toolkit) 10.2 or above. **Note:** Install CUDA toolkit from https://developer.nvidia.com/cuda-toolkit (not through anaconda)
 4. Install the appropriate version of PyTorch compatible with the installed Cuda toolkit.
 5. Install [nvdiffrast](https://github.com/NVlabs/nvdiffrast) in conda env. Follow the [installation instructions](https://nvlabs.github.io/nvdiffrast/#windows).
-6. download the [ViT-L SAM model](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth), put it in the `Code` folder like `Code\sam_vit_l_0b3195.pth`
+6. Install Segment Anything:
+   ```python
+   pip install git+https://github.com/facebookresearch/segment-anything.git
+   ```
+8. download the [ViT-L SAM model](https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth), put it in the `Code` folder like `Code\sam_vit_l_0b3195.pth`
 
 Examples
 ========
