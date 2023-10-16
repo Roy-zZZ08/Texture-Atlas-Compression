@@ -1,4 +1,5 @@
 # **Texture Atlas Compression Based on Repeated Content Removal**
+![representative](imgs/representative.jpg)
 
 
 ## Abstract
