@@ -257,7 +257,7 @@ def render_compare(
             for b in range(FLAGS.batch):
 
                 # sample camera pos
-                with open('E:/Projects/VS/ModelCompress/sample.csv', 'r') as file:
+                with open('./sample.csv', 'r') as file:
                     reader = csv.reader(file)
                     rows = list(reader)
 
@@ -404,7 +404,7 @@ def render_compare(
     res.write("avg_psnr_loss=%.6f\n" % (avg_psnr_loss))
     avg_ssim_loss = avg_ssim_loss/FLAGS.iter
 
-    with open("E:/Projects/VS/ModelCompress/data.csv", "a") as csvfile:
+    with open("./data.csv", "a") as csvfile:
         csvfile.write(str(avg_psnr_loss) +"," + str(avg_ssim_loss) + "\n")
         csvfile.close()
 
