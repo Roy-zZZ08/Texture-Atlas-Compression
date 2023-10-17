@@ -52,7 +52,7 @@ The results will be stored in the `output_Path` folder.
 @article{luo23atlascompress,
    title = {Texture Atlas Compression Based on Repeated Content Removal},
    author = {Luo, Yuzhe and Jin, Xiaogang and Pan, Zherong and Wu, Kui and Kou, Qilong and Yang, Xiajun and Gao, Xifeng},
-   journal = {ACM SIGGRAPH 2023 Conference Proceedings},
+   booktitle = {SIGGRAPH Asia 2023 Conference Papers},
    pages={1--10},
    year={2023}
   }
