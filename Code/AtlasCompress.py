@@ -4,8 +4,60 @@ import cv2
 import time
 import argparse
 
-
 # Data Preparation
+def clean_mesh(obj_path, output_path):
+    vertices = []
+    uvs = []
+    faces = []
+    with open(obj_path, 'r') as f:
+        for line in f:
+            if line.startswith('v '):
+                vertices.append(list(map(float, line.strip().split()[1:])))
+            elif line.startswith('vt '):
+                uvs.append(list(map(float, line.strip().split()[1:])))
+            elif line.startswith('f '):
+                faces.append(line.strip().split()[1:])
+
+    epsilon = 1e-6
+    vertex_map = {}
+    new_vertices = []
+    new_uvs = []
+    for i, v in enumerate(vertices):
+        duplicate = False
+        for j, nv in enumerate(new_vertices):
+            if all(abs(v[k] - nv[k]) < epsilon for k in range(3)):
+                vertex_map[i] = j
+                duplicate = True
+                break
+        if not duplicate:
+            vertex_map[i] = len(new_vertices)
+            new_vertices.append(v)
+
+    uv_map = {}
+    for i, uv in enumerate(uvs):
+        duplicate = False
+        for j, nuv in enumerate(new_uvs):
+            if all(abs(uv[k] - nuv[k]) < epsilon for k in range(2)):
+                uv_map[i] = j
+                duplicate = True
+                break
+        if not duplicate:
+            uv_map[i] = len(new_uvs)
+            new_uvs.append(uv)
+
+    with open(output_path, 'w') as f:
+        for v in new_vertices:
+            f.write(f"v {' '.join(map(str, v))}\n")
+        for uv in new_uvs:
+            f.write(f"vt {' '.join(map(str, uv))}\n")
+        for face in faces:
+            f.write("f ")
+            for part in face:
+                v, vt, vn = part.split('/')
+                f.write(f"{vertex_map[int(v)-1]+1}/{uv_map[int(vt)-1]+1 if vt else ''}/{vn if vn else ''} ")
+            f.write("\n")
+
+
 def data_preparation(data_Path):
     if os.path.exists('./tmp') == True:
         shutil.rmtree('./tmp')   
@@ -21,8 +73,7 @@ def data_preparation(data_Path):
     if image.shape[2] == 4:
         image = cv2.cvtColor(image, cv2.COLOR_BGRA2BGR)
     cv2.imwrite('./tmp/texture.jpg', image)
-
-    shutil.copy(data_Path + '/model.obj', './tmp/model.obj')
+    clean_mesh(data_Path + '/model.obj', './tmp/model.obj')
 
 # Feature Extraction
 def feature_extraction():

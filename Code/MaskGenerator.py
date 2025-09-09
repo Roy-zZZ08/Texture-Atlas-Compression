@@ -194,6 +194,7 @@ def get_amg_kwargs(args):
 
 def main(args: argparse.Namespace) -> None:
     print("Loading model...")
+    args.model_type = "vit_l"
     sam = sam_model_registry[args.model_type](checkpoint=args.checkpoint)
     _ = sam.to(device=args.device)
     output_mode = "coco_rle" if args.convert_to_rle else "binary_mask"
