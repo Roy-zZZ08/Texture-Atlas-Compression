@@ -45,17 +45,43 @@ def clean_mesh(obj_path, output_path):
             uv_map[i] = len(new_uvs)
             new_uvs.append(uv)
 
+    valid_faces = []
+    for face in faces:
+        if len(face) != 3:
+            continue  
+        vertex_indices = []
+        for part in face:
+            components = part.split('/')
+            v = components[0]
+            vertex_indices.append(int(v))
+        if len(set(vertex_indices)) < 3:
+            continue 
+        valid_faces.append(face)
+
     with open(output_path, 'w') as f:
         for v in new_vertices:
             f.write(f"v {' '.join(map(str, v))}\n")
         for uv in new_uvs:
             f.write(f"vt {' '.join(map(str, uv))}\n")
-        for face in faces:
+        for face in valid_faces:
+            vertex_indices = []
+            for part in face:
+                components = part.split('/')
+                v = components[0]
+                vertex_indices.append(vertex_map[int(v)-1]+1)
+            if len(set(vertex_indices)) < 3:
+                continue  
             f.write("f ")
             for part in face:
-                v, vt, vn = part.split('/')
-                f.write(f"{vertex_map[int(v)-1]+1}/{uv_map[int(vt)-1]+1 if vt else ''}/{vn if vn else ''} ")
+                components = part.split('/')
+                if len(components) == 2:
+                    v, vt = components
+                    f.write(f"{vertex_map[int(v)-1]+1}/{uv_map[int(vt)-1]+1 if vt else ''} ")
+                elif len(components) == 3:
+                    v, vt, vn = components
+                    f.write(f"{vertex_map[int(v)-1]+1}/{uv_map[int(vt)-1]+1 if vt else ''}/{vn if vn else ''} ")
             f.write("\n")
+
 
 
 def data_preparation(data_Path):
